@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "carousel-widget-icons-client-side-solution",
+    "id": "8d17d4d2-54bd-4d6f-8d34-8d7ef4d20063",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.22.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Carousel_Widget_Icons description"
+      },
+      "longDescription": {
+        "default": "Carousel_Widget_Icons description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "carousel-widget-icons Feature",
+        "description": "The feature that activates elements of the carousel-widget-icons solution.",
+        "id": "06dd7511-50bb-45bd-81f8-0f14fd179599",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/carousel-widget-icons.sppkg"
+  }
+}

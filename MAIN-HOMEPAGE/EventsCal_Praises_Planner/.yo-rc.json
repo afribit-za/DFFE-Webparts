@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.19.0",
+    "sdksVersions": {},
+    "version": "1.22.2",
+    "libraryName": "event-cal-praises-planner",
+    "libraryId": "358bdca9-548e-42b9-a026-883908026ee8",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "eventCal_praises_planner",
+    "solutionShortDescription": "eventCal_praises_planner description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

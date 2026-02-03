@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "events-cal-praises-planner-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/eventsCalPraisesPlanner/EventsCalPraisesPlannerWebPart.js",
+          "manifest": "./src/webparts/eventsCalPraisesPlanner/EventsCalPraisesPlannerWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "EventsCalPraisesPlannerWebPartStrings": "lib/webparts/eventsCalPraisesPlanner/loc/{locale}.js"
+  }
+}

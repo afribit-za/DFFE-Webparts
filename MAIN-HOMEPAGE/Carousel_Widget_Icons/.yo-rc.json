@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.19.0",
+    "sdksVersions": {},
+    "version": "1.22.2",
+    "libraryName": "carousel-widget-icons",
+    "libraryId": "8d17d4d2-54bd-4d6f-8d34-8d7ef4d20063",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "Carousel_Widget_Icons",
+    "solutionShortDescription": "Carousel_Widget_Icons description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

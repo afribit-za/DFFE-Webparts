@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.19.0",
+    "sdksVersions": {},
+    "version": "1.22.2",
+    "libraryName": "teams-outlook-recent-docs",
+    "libraryId": "28f75d58-face-4a27-beac-f6c5e8690901",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "teams_outlook_recentDocs",
+    "solutionShortDescription": "teams_outlook_recentDocs description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

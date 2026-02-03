@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "teams-outlook-recent-docs-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/teamsOutlookRecentDocs/TeamsOutlookRecentDocsWebPart.js",
+          "manifest": "./src/webparts/teamsOutlookRecentDocs/TeamsOutlookRecentDocsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "TeamsOutlookRecentDocsWebPartStrings": "lib/webparts/teamsOutlookRecentDocs/loc/{locale}.js"
+  }
+}

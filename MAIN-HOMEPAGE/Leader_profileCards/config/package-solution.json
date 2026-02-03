@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "profile-cards-client-side-solution",
+    "id": "b1606f41-4beb-45c5-9c7b-2ed283379e58",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.22.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "profileCards description"
+      },
+      "longDescription": {
+        "default": "profileCards description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "profile-cards Feature",
+        "description": "The feature that activates elements of the profile-cards solution.",
+        "id": "b88dd750-a6e8-4e13-9200-60af5a41f97d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/profile-cards.sppkg"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "teams-outlook-recent-docs-client-side-solution",
+    "id": "28f75d58-face-4a27-beac-f6c5e8690901",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.22.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "teams_outlook_recentDocs description"
+      },
+      "longDescription": {
+        "default": "teams_outlook_recentDocs description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "teams-outlook-recent-docs Feature",
+        "description": "The feature that activates elements of the teams-outlook-recent-docs solution.",
+        "id": "cbfeef42-44dc-44c4-9836-ef882411c12d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/teams-outlook-recent-docs.sppkg"
+  }
+}
