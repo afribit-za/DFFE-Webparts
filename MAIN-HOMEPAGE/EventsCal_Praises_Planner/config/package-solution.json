@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "event-cal-praises-planner-client-side-solution",
-    "id": "358bdca9-548e-42b9-a026-883908026ee8",
+    "name": "events-cal-praises-planner-client-side-solution",
+    "id": "ad90af5d-4da7-4076-ba15-6ff60573fca5",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -12,14 +12,14 @@
       "websiteUrl": "",
       "privacyUrl": "",
       "termsOfUseUrl": "",
-      "mpnId": "Undefined-1.22.2"
+      "mpnId": "Undefined-1.20.0"
     },
     "metadata": {
       "shortDescription": {
-        "default": "eventCal_praises_planner description"
+        "default": "EventsCalPraisesPlanner description"
       },
       "longDescription": {
-        "default": "eventCal_praises_planner description"
+        "default": "EventsCalPraisesPlanner description"
       },
       "screenshotPaths": [],
       "videoUrl": "",
@@ -27,14 +27,14 @@
     },
     "features": [
       {
-        "title": "event-cal-praises-planner Feature",
-        "description": "The feature that activates elements of the event-cal-praises-planner solution.",
-        "id": "06ac237d-2492-42b5-8851-ed41708a6abf",
+        "title": "events-cal-praises-planner Feature",
+        "description": "The feature that activates elements of the events-cal-praises-planner solution.",
+        "id": "8d1e6ef0-16ca-421e-9986-03e1c12b4296",
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/event-cal-praises-planner.sppkg"
+    "zippedPackage": "solution/events-cal-praises-planner.sppkg"
   }
 }

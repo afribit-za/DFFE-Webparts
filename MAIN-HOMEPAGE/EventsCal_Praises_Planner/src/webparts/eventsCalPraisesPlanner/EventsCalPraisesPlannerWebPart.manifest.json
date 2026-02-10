@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "fc15e4f8-b85b-4777-ba58-f1e02c9b2004",
+  "id": "ff5a7587-f4b7-4599-8085-ead5939b6fa3",
   "alias": "EventsCalPraisesPlannerWebPart",
   "componentType": "WebPart",
 
@@ -18,11 +18,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "EventsCal_Praises_Planner" },
-    "description": { "default": "EventsCal_Praises_Planner description" },
+    "title": { "default": "EventsCalPraisesPlanner" },
+    "description": { "default": "EventsCalPraisesPlanner description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "EventsCal_Praises_Planner"
+      "description": "EventsCalPraisesPlanner"
     }
   }]
 }

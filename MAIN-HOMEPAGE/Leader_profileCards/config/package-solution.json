@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "profile-cards-client-side-solution",
-    "id": "b1606f41-4beb-45c5-9c7b-2ed283379e58",
+    "name": "leader-profile-cards-client-side-solution",
+    "id": "d9bc68f7-c8bd-4f85-a0db-12c01adc7ec0",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -12,14 +12,14 @@
       "websiteUrl": "",
       "privacyUrl": "",
       "termsOfUseUrl": "",
-      "mpnId": "Undefined-1.22.2"
+      "mpnId": "Undefined-1.20.0"
     },
     "metadata": {
       "shortDescription": {
-        "default": "profileCards description"
+        "default": "LeaderProfileCards description"
       },
       "longDescription": {
-        "default": "profileCards description"
+        "default": "LeaderProfileCards description"
       },
       "screenshotPaths": [],
       "videoUrl": "",
@@ -27,14 +27,14 @@
     },
     "features": [
       {
-        "title": "profile-cards Feature",
-        "description": "The feature that activates elements of the profile-cards solution.",
-        "id": "b88dd750-a6e8-4e13-9200-60af5a41f97d",
+        "title": "leader-profile-cards Feature",
+        "description": "The feature that activates elements of the leader-profile-cards solution.",
+        "id": "d1f895c3-8b9f-485b-abf4-a118e6b4a137",
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/profile-cards.sppkg"
+    "zippedPackage": "solution/leader-profile-cards.sppkg"
   }
 }

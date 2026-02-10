@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "12800525-ee2f-4ec5-b0a8-72651fb94f3c",
+  "id": "06adca78-7d9e-4102-83d2-8f09400490d8",
   "alias": "CarouselWidgetIconsWebPart",
   "componentType": "WebPart",
 
@@ -18,11 +18,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "Carousel_widget_icons" },
-    "description": { "default": "Carousel_widget_icons description" },
+    "title": { "default": "CarouselWidgetIcons" },
+    "description": { "default": "CarouselWidgetIcons description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Carousel_widget_icons"
+      "description": "CarouselWidgetIcons"
     }
   }]
 }

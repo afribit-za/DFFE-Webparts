@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "main-doc-hub-client-side-solution",
+    "id": "238caece-8234-48ca-b16f-9c8a182393e8",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "MainDocHub description"
+      },
+      "longDescription": {
+        "default": "MainDocHub description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "main-doc-hub Feature",
+        "description": "The feature that activates elements of the main-doc-hub solution.",
+        "id": "77000ed0-9c8f-42d3-a2b1-d74b0b764e4c",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/main-doc-hub.sppkg"
+  }
+}

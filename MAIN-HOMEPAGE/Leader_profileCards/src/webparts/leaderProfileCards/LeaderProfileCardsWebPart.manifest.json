@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "79eb282f-3d37-4989-bbb7-ee6d4fe2de66",
+  "id": "1b9df527-e37e-4bd2-a6ea-4d7e159d0597",
   "alias": "LeaderProfileCardsWebPart",
   "componentType": "WebPart",
 
@@ -18,11 +18,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "LeaderProfile_Cards" },
-    "description": { "default": "LeaderProfile_Cards description" },
+    "title": { "default": "LeaderProfileCards" },
+    "description": { "default": "LeaderProfileCards description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "LeaderProfile_Cards"
+      "description": "LeaderProfileCards"
     }
   }]
 }

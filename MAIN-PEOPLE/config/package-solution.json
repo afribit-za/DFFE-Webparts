@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "main-people-client-side-solution",
+    "id": "0e3ebe2d-5a68-4013-838f-5bebf702ef66",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "MainPeople description"
+      },
+      "longDescription": {
+        "default": "MainPeople description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "main-people Feature",
+        "description": "The feature that activates elements of the main-people solution.",
+        "id": "d4f0ba13-f7bc-4100-a6f9-083ec036df21",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/main-people.sppkg"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "bb27e58f-0513-486e-aefd-3679c191e408",
+  "id": "84f5b6ea-881e-40c0-a2c1-7396a7290274",
   "alias": "TeamsOutlookRecentDocsWebPart",
   "componentType": "WebPart",
 
@@ -18,11 +18,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
     "group": { "default": "Advanced" },
-    "title": { "default": "teams_outlook_RecentDocs" },
-    "description": { "default": "teams_outlook_RecentDocs description" },
+    "title": { "default": "TeamsOutlookRecentDocs" },
+    "description": { "default": "TeamsOutlookRecentDocs description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "teams_outlook_RecentDocs"
+      "description": "TeamsOutlookRecentDocs"
     }
   }]
 }

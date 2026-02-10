@@ -1,17 +1,19 @@
 {
   "@microsoft/generator-sharepoint": {
-    "useGulp": false,
     "plusBeta": false,
     "isCreatingSolution": true,
-    "nodeVersion": "22.19.0",
-    "sdksVersions": {},
-    "version": "1.22.2",
+    "nodeVersion": "18.20.8",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
     "libraryName": "carousel-widget-icons",
-    "libraryId": "8d17d4d2-54bd-4d6f-8d34-8d7ef4d20063",
+    "libraryId": "4a02666e-86d6-46e0-85b1-5bcb6307076f",
     "environment": "spo",
     "packageManager": "npm",
-    "solutionName": "Carousel_Widget_Icons",
-    "solutionShortDescription": "Carousel_Widget_Icons description",
+    "solutionName": "CarouselWidgetIcons",
+    "solutionShortDescription": "CarouselWidgetIcons description",
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "componentType": "webpart"

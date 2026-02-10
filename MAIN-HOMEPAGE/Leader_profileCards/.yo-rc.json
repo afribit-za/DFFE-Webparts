@@ -1,17 +1,19 @@
 {
   "@microsoft/generator-sharepoint": {
-    "useGulp": false,
     "plusBeta": false,
     "isCreatingSolution": true,
-    "nodeVersion": "22.19.0",
-    "sdksVersions": {},
-    "version": "1.22.2",
-    "libraryName": "profile-cards",
-    "libraryId": "b1606f41-4beb-45c5-9c7b-2ed283379e58",
+    "nodeVersion": "18.20.8",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "leader-profile-cards",
+    "libraryId": "d9bc68f7-c8bd-4f85-a0db-12c01adc7ec0",
     "environment": "spo",
     "packageManager": "npm",
-    "solutionName": "profileCards",
-    "solutionShortDescription": "profileCards description",
+    "solutionName": "LeaderProfileCards",
+    "solutionShortDescription": "LeaderProfileCards description",
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "componentType": "webpart"
