@@ -1,34 +1,21 @@
-@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+/* ============================================================
+   CarouselWidgetIconsWebPart — Root-level web part styles
+   This file provides the outermost container reset for the
+   web part to bleed 97vw full-width within SharePoint pages.
+   ============================================================ */
 
 .carouselWidgetIcons {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: "[theme:bodyText, default: #1A1A1A]";
   color: var(--bodyText);
-  &.teams {
-    font-family: $ms-font-family-fallbacks;
-  }
-}
-
-.welcome {
-  text-align: center;
-}
-
-.welcomeImage {
+  box-sizing: border-box;
   width: 100%;
-  max-width: 420px;
-}
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
-
-    &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
-    }
+  /* Override SharePoint page container constraints */
+  * {
+    box-sizing: border-box;
   }
 }

@@ -1,0 +1,290 @@
+/* ============================================================
+   CarouselCard — Individual carousel card styles
+   3-card overlapping layout with position-based transforms
+   ============================================================ */
+
+$primary-green: #00A651;
+$secondary-orange: #F7941D;
+$secondary-black: #1A1A1A;
+$secondary-brown: #6D4C41;
+$white: #FFFFFF;
+$grey-light: #F5F5F5;
+$grey-text: #757575;
+
+$font-family: Arial, Helvetica, sans-serif;
+$radius: 12px;
+$transition-card: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+/* ---------- Keyframes ---------- */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    width: 40%;
+    box-shadow: 0 0 8px rgba($primary-green, 0.3);
+  }
+  50% {
+    opacity: 1;
+    width: 65%;
+    box-shadow: 0 0 16px rgba($primary-green, 0.5);
+  }
+}
+
+@keyframes shimmerBg {
+  0% { background-position: -300px 0; }
+  100% { background-position: 300px 0; }
+}
+
+/* ---------- Card Wrapper (positioned absolutely) ---------- */
+.card {
+  position: absolute;
+  width: 72%;
+  left: 14%;
+  top: 0;
+  bottom: 0;
+  transition: $transition-card;
+  cursor: pointer;
+  font-family: $font-family;
+}
+
+/* ---------- Position Variants ---------- */
+.center {
+  z-index: 3;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  filter: none;
+}
+
+.left {
+  z-index: 1;
+  transform: translateX(-28%) scale(0.88);
+  opacity: 0.45;
+  filter: brightness(0.92);
+  pointer-events: none;
+}
+
+.right {
+  z-index: 2;
+  transform: translateX(28%) scale(0.88);
+  opacity: 0.45;
+  filter: brightness(0.92);
+  pointer-events: none;
+}
+
+.hidden {
+  z-index: 0;
+  transform: translateX(0) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Card Inner ---------- */
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $white;
+  border-radius: $radius;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease;
+
+  .center & {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ---------- Category Badge ---------- */
+.labelBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 4;
+  background: $primary-green;
+  color: $white;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba($primary-green, 0.3);
+  opacity: 0.55;
+}
+
+/* ---------- Image ---------- */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 55%;
+  min-height: 140px;
+  overflow: hidden;
+  background: $grey-light;
+  flex-shrink: 0;
+}
+
+.imagePlaceholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, $grey-light 25%, darken($grey-light, 5%) 50%, $grey-light 75%);
+  background-size: 600px 100%;
+  animation: shimmerBg 1.4s infinite linear;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.imageVisible {
+  opacity: 1;
+}
+
+/* ---------- Content ---------- */
+.content {
+  flex: 1;
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: $secondary-black;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description {
+  margin: 0;
+  font-size: 11px;
+  color: #4a4a4a;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.readMore {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: $primary-green;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    color: darken($primary-green, 10%);
+    transform: translateX(3px);
+  }
+
+  &::after {
+    content: ' →';
+  }
+}
+
+.date {
+  font-size: 9px;
+  color: $grey-text;
+  margin-top: auto;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- Active Indicator (underline glow) ---------- */
+.activeIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 4px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, transparent, $primary-green, $secondary-orange, $primary-green, transparent);
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* ---------- Empty Card ---------- */
+.emptyCard {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.emptyText {
+  font-size: 12px;
+  color: $grey-text;
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .card {
+    width: 80%;
+    left: 10%;
+  }
+
+  .left {
+    transform: translateX(-20%) scale(0.9);
+  }
+
+  .right {
+    transform: translateX(20%) scale(0.9);
+  }
+
+  .content {
+    padding: 10px 12px 14px;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .description {
+    font-size: 10px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 88%;
+    left: 6%;
+  }
+
+  .left {
+    transform: translateX(-14%) scale(0.92);
+  }
+
+  .right {
+    transform: translateX(14%) scale(0.92);
+  }
+
+  .imageContainer {
+    height: 45%;
+    min-height: 110px;
+  }
+}

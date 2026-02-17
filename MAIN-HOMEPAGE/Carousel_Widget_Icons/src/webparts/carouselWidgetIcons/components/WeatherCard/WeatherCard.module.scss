@@ -1,0 +1,188 @@
+/* ============================================================
+   WeatherCard — Brand-themed glassmorphism with overlapping cards
+   Primary top-left (behind), secondary bottom-right (in front)
+   Brand: Green #00A651, Orange #F7941D, Black #1A1A1A
+   ============================================================ */
+
+$primary-green: #00A651;
+$secondary-orange: #F7941D;
+$secondary-black: #1A1A1A;
+$white: #FFFFFF;
+$font-family: Arial, Helvetica, sans-serif;
+$radius: 16px;
+$transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+/* ---------- Card Base ---------- */
+.card {
+  position: absolute;
+  border-radius: $radius;
+  overflow: hidden;
+  font-family: $font-family;
+  color: $white;
+  transition: $transition-smooth;
+  box-sizing: border-box;
+
+  /* Gradient background simulating blurred city photo */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    z-index: 0;
+  }
+
+  /* Overlay for readability */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: $radius;
+  }
+}
+
+/* Primary: behind, top-left — green-tinted dark card */
+.primary {
+  top: 0;
+  left: 0;
+  width: 56%;
+  height: 82%;
+  z-index: 1;
+  opacity: 0.85;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+
+  &::before {
+    background:
+      radial-gradient(circle at 25% 70%, rgba($primary-green, 0.18), transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(180, 120, 60, 0.1), transparent 45%),
+      linear-gradient(155deg, darken($secondary-black, 5%) 0%, #1a2a1e 30%, #1e2a3a 65%, $secondary-black 100%);
+    filter: blur(4px);
+  }
+
+  &::after {
+    background: rgba($secondary-black, 0.50);
+  }
+}
+
+/* Secondary: in front, bottom-right — orange-tinted dark card */
+.secondary {
+  bottom: 0;
+  right: 0;
+  width: 64%;
+  height: 76%;
+  z-index: 2;
+  opacity: 0.9;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
+
+  &::before {
+    background:
+      radial-gradient(circle at 55% 45%, rgba($secondary-orange, 0.2), transparent 40%),
+      radial-gradient(circle at 80% 65%, rgba(200, 160, 50, 0.12), transparent 35%),
+      linear-gradient(155deg, $secondary-black 0%, #2a2015 25%, #1e2a3a 60%, darken($secondary-black, 5%) 100%);
+    filter: blur(4px);
+  }
+
+  &::after {
+    background: rgba($secondary-black, 0.45);
+  }
+
+  &:hover {
+    opacity: 0.95;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.36);
+  }
+}
+
+/* ---------- Content Wrapper ---------- */
+.cardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 18px 20px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cityName {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: $white;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  line-height: 1;
+}
+
+.headerLabel {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ---------- Main Weather ---------- */
+.mainWeather {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tempInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.temperature {
+  font-size: 34px;
+  font-weight: 700;
+  color: $white;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.weatherDesc {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.50);
+  text-transform: capitalize;
+}
+
+/* ---------- Details Row ---------- */
+.cardDetails {
+  display: flex;
+  gap: 18px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.detailValue {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .temperature {
+    font-size: 26px;
+  }
+  .cityName {
+    font-size: 12px;
+  }
+  .cardContent {
+    padding: 12px 14px;
+  }
+}

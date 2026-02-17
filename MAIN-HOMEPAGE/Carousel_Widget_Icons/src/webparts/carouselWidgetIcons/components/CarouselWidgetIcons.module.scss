@@ -1,0 +1,274 @@
+/* ============================================================
+   CarouselWidgetIcons — Main Container Styles
+   Brand: Primary Green #00A651, Orange #F7941D, Black #1A1A1A,
+          Brown #6D4C41, White #FFFFFF
+   Font:  Arial, base 10px with responsive scaling
+   ============================================================ */
+
+/* ---------- Brand Variables ---------- */
+$primary-green: #00A651;
+$secondary-orange: #F7941D;
+$secondary-black: #1A1A1A;
+$secondary-brown: #6D4C41;
+$white: #FFFFFF;
+$grey-light: #F5F5F5;
+$grey-mid: #E0E0E0;
+$grey-text: #757575;
+
+$font-family: Arial, Helvetica, sans-serif;
+$font-size-xs: 8px;
+$font-size-sm: 10px;
+$font-size-base: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+
+$radius: 10px;
+$radius-sm: 6px;
+$shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+$shadow-card: 0 6px 24px rgba(0, 0, 0, 0.12);
+$transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+$content-height: 300px;
+
+/* ---------- Keyframes ---------- */
+@keyframes shimmerAnim {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Main Container ---------- */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 97vw;
+  max-width: 97vw;
+  margin-left: calc(-48.5vw + 50%);
+  padding: 20px 32px 24px;
+  gap: 0;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $secondary-black;
+  box-sizing: border-box;
+  position: relative;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ---------- Welcome Banner ---------- */
+.welcomeBanner {
+  margin-bottom: 18px;
+  padding: 0 4px;
+  text-align: center;
+}
+
+.welcomeText {
+  font-size: 22px;
+  font-weight: 700;
+  color: $secondary-black;
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+  font-family: 'Georgia', 'Cambria', 'Times New Roman', $font-family;
+}
+
+.userName {
+  font-weight: 900;
+  color: $secondary-black;
+  letter-spacing: 0;
+  font-family: 'Georgia', 'Cambria', 'Times New Roman', $font-family;
+}
+
+/* Brushstroke underline — thick to thin paint stroke */
+.welcomeHighlight {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, $primary-green 0%, rgba($primary-green, 0.5) 60%, rgba($primary-green, 0.08) 100%);
+    border-radius: 4px 2px 2px 0;
+    clip-path: polygon(0 20%, 15% 0, 55% 30%, 85% 60%, 100% 90%, 100% 100%, 0 100%);
+    pointer-events: none;
+  }
+}
+
+/* ---------- Content Row ---------- */
+.contentRow {
+  display: flex;
+  align-items: stretch;
+  gap: 44px;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* ---------- Carousel Section ---------- */
+.carouselSection {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  height: $content-height;
+  perspective: 1200px;
+  overflow: visible;
+
+  @media (max-width: 768px) {
+    height: 270px;
+  }
+  @media (max-width: 480px) {
+    height: 240px;
+  }
+}
+
+/* ---------- Weather Section ---------- */
+.weatherSection {
+  flex: 0 0 26%;
+  max-width: 26%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    flex: 0 0 calc(100% - 72px);
+    max-width: calc(100% - 72px);
+  }
+  @media (max-width: 768px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.weatherWrapper {
+  position: relative;
+  width: 100%;
+  height: $content-height;
+  overflow: visible;
+
+  @media (max-width: 768px) {
+    height: 270px;
+  }
+  @media (max-width: 480px) {
+    height: 240px;
+  }
+}
+
+/* ---------- Social Icons Column ---------- */
+.socialSection {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  min-width: 48px;
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: center;
+    flex: 0 0 100%;
+    padding: 12px 0;
+    gap: 16px;
+    order: 3;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+}
+
+/* ---------- Shimmer Loading ---------- */
+.shimmer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.shimmerBlock {
+  width: 100%;
+  height: 120px;
+  border-radius: $radius;
+  background: linear-gradient(90deg, $grey-light 25%, $grey-mid 50%, $grey-light 75%);
+  background-size: 800px 100%;
+  animation: shimmerAnim 1.6s infinite linear;
+}
+
+.shimmerLine {
+  width: 100%;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, $grey-light 25%, $grey-mid 50%, $grey-light 75%);
+  background-size: 800px 100%;
+  animation: shimmerAnim 1.6s infinite linear;
+}
+
+.shimmerLineShort {
+  width: 55%;
+}
+
+.shimmerLineMed {
+  width: 75%;
+}
+
+/* ---------- Empty State ---------- */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  text-align: center;
+  min-height: 180px;
+}
+
+.emptyStateIcon {
+  font-size: 36px;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+
+.emptyStateMessage {
+  font-size: $font-size-md;
+  color: $secondary-black;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.emptyStateHint {
+  font-size: $font-size-sm;
+  color: $grey-text;
+  margin: 0;
+}
