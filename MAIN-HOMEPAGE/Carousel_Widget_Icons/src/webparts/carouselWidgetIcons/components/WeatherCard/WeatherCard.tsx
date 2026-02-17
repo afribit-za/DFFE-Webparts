@@ -26,7 +26,7 @@ const WeatherCard: React.FC<IWeatherCardProps> = (props) => {
         {/* Header: city name + label */}
         <div className={styles.cardHeader}>
           <h4 className={styles.cityName}>{data.cityName}</h4>
-          <span className={styles.headerLabel}>Current</span>
+          {/* <span className={styles.headerLabel}>Current</span> */}
         </div>
 
         {/* Centre: icon + temperature + description */}
