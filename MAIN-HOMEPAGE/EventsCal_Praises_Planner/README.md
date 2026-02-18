@@ -2,9 +2,12 @@
 
 ## Summary
 
-Short summary on functionality and used technologies.
+A comprehensive SharePoint Framework (SPFx) webpart that creates a unified dashboard displaying:
+- **Events & Calendar**: View and navigate your Microsoft 365 calendar events
+- **Planner & To Do Tasks**: Track tasks from Microsoft Planner (team tasks) and Microsoft To Do (private tasks)
+- **Viva Insights Praises**: Display recognition and praises received through Viva Insights
 
-[picture of the solution in action, if possible]
+Built with TypeScript, React patterns, and Microsoft Graph API integration. The webpart features a responsive three-column layout with real-time data from Microsoft 365 services.
 
 ## Used SharePoint Framework Version
 
@@ -19,7 +22,45 @@ Short summary on functionality and used technologies.
 
 ## Prerequisites
 
-> Any special pre-requisites?
+### Required Licenses
+- **Microsoft 365 E3/E5** or Business Premium subscription
+- **Viva Insights** license (for praises feature)
+- SharePoint Online
+
+### Required Permissions
+After deploying the solution, a SharePoint or Global Administrator must approve the following Microsoft Graph API permissions in **SharePoint Admin Center → API access**:
+
+- `Calendars.Read` - Read user calendars
+- `Tasks.Read` - Read Planner and To Do tasks
+- `Tasks.ReadWrite` - Create and update Planner and To Do tasks
+- `Group.Read.All` - Read groups (for Planner)
+- `Mail.Read` - **Required for Viva Insights praises**
+- `Community.Read.All` - Optional for Viva Engage praises
+- `User.Read.All` - Read user profile information
+
+### Setting up Viva Insights Praises
+
+The praises feature displays recognition you've received through **Viva Insights → Personal Insights → Send praise to teammates**.
+
+**To enable praises in this webpart:**
+
+1. **Deploy the solution** and add the webpart to your page
+2. **Approve API permissions** (SharePoint Admin Center → API access → Approve pending requests)
+3. **Send/Receive praises** through Viva Insights:
+   - Open Microsoft Teams or Outlook
+   - Go to Viva Insights app
+   - Navigate to "Personal Insights" or use the "Send praise" feature
+   - Send praise to teammates
+
+4. **Praise emails are detected** based on:
+   - Subject containing "praise", "recognition", or "badge"
+   - Emails from Viva Insights service
+   - Keywords in email body
+
+**Note:** Praises sent through Viva Insights are delivered as email notifications, which the webpart reads using the `Mail.Read` permission. If no praises appear, verify:
+- You have received praise emails from Viva Insights
+- The `Mail.Read` permission is approved
+- Check browser console for any error messages
 
 ## Solution
 
@@ -52,13 +93,40 @@ Short summary on functionality and used technologies.
 
 ## Features
 
-Description of the extension that expands upon high-level summary above.
+This webpart provides a comprehensive dashboard combining three key productivity features:
+
+### 1. Events and Calendar
+- Interactive calendar view with navigation
+- Displays events from user's Microsoft 365 calendar
+- Visual indicators for days with events
+- Event list with date ribbons showing upcoming events
+- Click on dates to view event details
+
+### 2. Planner & To Do Tasks
+- Displays tasks from Microsoft Planner (team tasks) and Microsoft To Do (private tasks)
+- **Create Private Tasks**: Select "📋 My Tasks (Private)" to create personal To Do tasks
+- **Create Team Tasks**: Select any Planner plan to create shared team tasks
+- Search functionality to filter tasks
+- Shows task priority, due dates, and completion status
+- Progress tracking with slider (0-100% in 25% increments)
+- Click on tasks to view and update progress in modal
+- Unified task list showing both private and team tasks
+
+### 3. Viva Insights Praises
+- Automatically fetches praises received through Viva Insights
+- Displays praise badges with custom colors (Thank You, Great Job, Kudos, etc.)
+- Shows who sent the praise and the message
+- Attempts multiple sources: Viva Insights emails, Viva Engage, Teams messages
+- Visual praise cards with badge types and colors
 
 This extension illustrates the following concepts:
 
-- topic 1
-- topic 2
-- topic 3
+- Microsoft Graph API integration (Calendar, Tasks, Mail, Communities)
+- SPFx webpart development with TypeScript
+- Permission management and API access approval
+- Multi-source data aggregation
+- Responsive dashboard layout with SCSS modules
+- Interactive UI with modals and tooltips
 
 > Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
 

@@ -1,34 +1,934 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
+// Color Variables
+$primary-green: #00A651; // Pantone Green
+$secondary-orange: #FF6B35;
+$secondary-black: #1C1C1C;
+$secondary-brown: #5C4033;
+$bg-neutral: #F5F5F5;
+$card-bg: #FFFFFF;
+$text-primary: #1C1C1C;
+$text-secondary: #666666;
+$border-color: #E0E0E0;
+
+// Typography
+$font-family: Arial, sans-serif;
+$font-size-small: 8px;
+$font-size-base: 9px;
+$font-size-medium: 10px;
+
+// Spacing
+$border-radius: 10px;
+$spacing-xs: 6px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+
+// Shadows
+$shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+
 .eventsCalPraisesPlanner {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
-  &.teams {
-    font-family: $ms-font-family-fallbacks;
+  width: 97vw;
+  max-width: 97vw;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $bg-neutral;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $text-primary;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  position: relative; // Ensure modal positioning works correctly
+
+  * {
+    box-sizing: border-box;
   }
 }
 
-.welcome {
-  text-align: center;
-}
-
-.welcomeImage {
+.dashboardContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-lg;
   width: 100%;
-  max-width: 420px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  min-width: 0;
+  height: 100%;
+  max-height: 750px; // Equalize all columns
+  overflow: hidden; // Prevent column from expanding
+}
 
+.sectionTitle {
+  font-size: $font-size-medium;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+// ===== CALENDAR STYLES =====
+.calendarContainer {
+  background: $card-bg;
+  border-radius: $border-radius;
+  padding: $spacing-sm;
+  box-shadow: $shadow-subtle;
+  transition: box-shadow 0.3s ease;
+  flex-shrink: 0; // Prevent calendar from growing
+  max-height: 250px; // Limit calendar height
+
+  &:hover {
+    box-shadow: $shadow-hover;
+  }
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.monthDisplay {
+  font-size: $font-size-base;
+  font-weight: 700;
+  color: $text-primary;
+  text-align: center;
+  flex: 1;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: $primary-green;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:focus {
+    outline: 2px solid $primary-green;
+    outline-offset: 2px;
+  }
+}
+
+.calendarGrid {
+  width: 100%;
+}
+
+.calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.weekday {
+  font-size: 7px;
+  font-weight: 700;
+  color: $text-secondary;
+  text-align: center;
+  padding: 2px;
+}
+
+.calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendarDay {
+  position: relative;
+  min-height: 22px;
+  max-height: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; // Circular for standalone look
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 0;
+  background: transparent; // No background by default
+  font-size: 7px;
+  width: 22px;
+  margin: 0 auto;
+
+  &:hover:not(.today) {
+    background: rgba($primary-green, 0.08);
+  }
+}
+
+.dayNumber {
+  font-size: 8px; // Slightly larger for readability
+  color: $text-primary;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.otherMonth {
+  .dayNumber {
+    color: $text-secondary;
+    opacity: 0.3;
+  }
+}
+
+.today {
+  background: $primary-green !important;
+  
+  .dayNumber {
+    color: white;
+    font-weight: 700;
+  }
+  
+  &:hover {
+    background: darken($primary-green, 5%) !important;
+  }
+}
+
+.hasEvents {
+  .dayNumber {
+    font-weight: 700;
+    color: $primary-green;
+  }
+}
+
+.eventDot {
+  position: absolute;
+  bottom: 2px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: $primary-green;
+  
+  .today & {
+    background: white; // White dot on today's green background
+  }
+}
+
+.dayTooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-sm;
+  box-shadow: $shadow-hover;
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 300px;
+  font-size: $font-size-base;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.tooltipEvent {
+  padding: $spacing-xs 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  strong {
+    color: $text-primary;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  small {
+    color: $text-secondary;
+    font-size: $font-size-small;
+  }
+}
+
+// ===== EVENT CARDS (RIBBON STYLE) =====
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 450px; // Adjusted to balance with smaller calendar
+  min-height: 0; // Allow flex shrinking
+  flex-shrink: 1;
+  
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $bg-neutral;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $primary-green;
+    border-radius: 4px;
+    
     &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
+      background: darken($primary-green, 10%);
     }
   }
+}
+
+.eventCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm; // Reduced from md
+  background: $card-bg;
+  border-radius: $border-radius;
+  padding: $spacing-sm; // Reduced from md
+  box-shadow: $shadow-subtle;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-3px);
+  }
+}
+
+.eventDate {
+  background: $primary-green;
+  color: white;
+  border-radius: 6px; // Reduced from 8px
+  padding: $spacing-xs; // Reduced from sm
+  text-align: center;
+  min-width: 40px; // Reduced from 50px
+  flex-shrink: 0;
+}
+
+.eventMonth {
+  font-size: 7px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.eventDay {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+.eventDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.eventTitle {
+  font-size: $font-size-base;
+  font-weight: 700;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.eventMeta {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eventRibbon {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent; // Reduced from 25px
+  border-bottom: 20px solid transparent;
+  border-left: 12px solid $primary-green; // Reduced from 15px
+  flex-shrink: 0;
+  margin-right: -12px;
+}
+
+// ===== TASK CARDS =====
+.searchContainer {
+  margin-bottom: $spacing-sm;
+}
+
+.searchInput {
+  width: 100%;
+  padding: $spacing-sm;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-green;
+    box-shadow: 0 0 0 3px rgba($primary-green, 0.1);
+  }
+}
+
+.tasksList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 580px; // Account for: title (~35px) + search (~45px) + button (~60px) + gaps (~30px) = ~170px, leaving 580px for tasks in a 750px column
+  min-height: 0; // Allow flex shrinking
+  flex-shrink: 1; // Allow shrinking if needed
+  
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $bg-neutral;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $primary-green;
+    border-radius: 4px;
+    
+    &:hover {
+      background: darken($primary-green, 10%);
+    }
+  }
+}
+
+.taskCard {
+  background: $card-bg;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  box-shadow: $shadow-subtle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid $primary-green;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-3px);
+  }
+}
+
+.taskHeader {
+  margin-bottom: $spacing-xs;
+}
+
+.taskTitle {
+  font-size: $font-size-medium;
+  font-weight: 700;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskPlan {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-bottom: $spacing-xs;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  font-size: $font-size-small;
+  align-items: center;
+}
+
+.taskDue,
+.taskPriority,
+.taskProgress {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: $bg-neutral;
+  color: $text-secondary;
+  white-space: nowrap;
+}
+
+.highPriority {
+  background: $secondary-orange !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.taskAttachment {
+  font-size: 12px;
+}
+
+.addButton {
+  width: 100%;
+  padding: $spacing-md;
+  background: $primary-green;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-size: $font-size-medium;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: $spacing-sm;
+
+  &:hover {
+    background: darken($primary-green, 10%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-hover;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ===== PRAISE CARDS =====
+.praisesList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 700px; // Account for title (~35px) + gaps (~15px) = ~50px, leaving 700px for praises in 750px column
+  min-height: 0; // Allow flex shrinking
+  flex-shrink: 1;
+  
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $bg-neutral;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $primary-green;
+    border-radius: 4px;
+    
+    &:hover {
+      background: darken($primary-green, 10%);
+    }
+  }
+}
+
+.praiseCard {
+  display: flex;
+  gap: $spacing-md;
+  background: $card-bg;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  box-shadow: $shadow-subtle;
+  transition: all 0.3s ease;
+  align-items: flex-start;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-3px);
+  }
+}
+
+.praiseProfile {
+  flex-shrink: 0;
+}
+
+.praiseAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $primary-green;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.praiseContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.praiseTitle {
+  font-size: $font-size-medium;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.praiseSender {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-bottom: 4px;
+}
+
+.praiseMessage {
+  font-size: $font-size-base;
+  color: $text-primary;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ===== MODAL STYLES =====
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999999;
+  padding: $spacing-lg;
+  animation: fadeIn 0.2s ease-in-out;
+  margin: 0;
+  transform: none;
+  
+  // Only apply flex when visible (controlled by inline style)
+  &[style*="display: block"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContent {
+  background: $card-bg;
+  border-radius: $border-radius;
+  padding: $spacing-lg * 2;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease-out;
+  margin: auto; // Ensure centering
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.closeModal {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  font-size: 28px;
+  font-weight: 700;
+  color: $text-secondary;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+
+  &:hover {
+    color: $text-primary;
+    background: rgba($text-secondary, 0.1);
+    transform: rotate(90deg);
+  }
+}
+
+.modalTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 $spacing-lg 0;
+}
+
+.modalSection {
+  margin-bottom: $spacing-lg;
+  font-size: $font-size-base;
+  line-height: 1.6;
+
+  strong {
+    color: $text-primary;
+    font-weight: 700;
+  }
+
+  p {
+    margin: $spacing-xs 0;
+    color: $text-secondary;
+  }
+
+  ul {
+    margin: $spacing-xs 0;
+    padding-left: $spacing-lg;
+    
+    li {
+      margin: $spacing-xs 0;
+    }
+  }
+}
+
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  label {
+    font-size: $font-size-base;
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: $spacing-sm;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-family: $font-family;
+    font-size: $font-size-base;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-green;
+      box-shadow: 0 0 0 3px rgba($primary-green, 0.1);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: $border-color;
+    outline: none;
+    -webkit-appearance: none;
+    
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: $primary-green;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 4px rgba($primary-green, 0.2);
+      }
+    }
+    
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: $primary-green;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 4px rgba($primary-green, 0.2);
+      }
+    }
+  }
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  color: $text-secondary;
+  margin-top: 4px;
+}
+
+.progressEditor {
+  padding: $spacing-md;
+  background: $bg-neutral;
+  border-radius: $border-radius;
+  
+  label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-weight: 600;
+    
+    span {
+      color: $primary-green;
+      font-size: 14px;
+    }
+  }
+  
+  input[type="range"] {
+    margin-bottom: $spacing-xs;
+  }
+  
+  button {
+    margin-top: $spacing-md;
+    width: 100%;
+  }
+}
+
+.formActions {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: flex-end;
+  margin-top: $spacing-md;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.primaryButton {
+  background: $primary-green;
+  color: white;
+
+  &:hover {
+    background: darken($primary-green, 10%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+.secondaryButton {
+  background: $bg-neutral;
+  color: $text-primary;
+
+  &:hover {
+    background: darken($bg-neutral, 5%);
+  }
+}
+
+// ===== UTILITY STYLES =====
+.loading,
+.emptyState,
+.errorMessage {
+  text-align: center;
+  padding: $spacing-lg;
+  color: $text-secondary;
+  font-size: $font-size-base;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $bg-neutral 25%,
+    lighten($bg-neutral, 3%) 50%,
+    $bg-neutral 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: $border-radius;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.error {
+  color: $secondary-orange;
+  font-weight: 700;
+}
+
+// ===== ACCESSIBILITY =====
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Focus visible for keyboard navigation
+:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
 }
