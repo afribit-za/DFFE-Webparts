@@ -1,14 +1,12 @@
 /* ============================================================
-   SocialIcon — Circular icon with hover animation
+   SocialIcon — Green-filled circular icon matching design
    ============================================================ */
 
 $primary-green: #00A651;
-$secondary-black: #1A1A1A;
 $white: #FFFFFF;
-$grey-light: #F5F5F5;
 
-$icon-size: 42px;
-$transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$icon-size: 44px;
+$transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 .iconLink {
   display: inline-flex;
@@ -16,17 +14,11 @@ $transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transition: $transition;
 
   &:hover {
-    transform: scale(1.15);
-
-    .iconCircle {
-      box-shadow: 0 4px 16px rgba($primary-green, 0.3);
-      background: rgba($primary-green, 0.08);
-      border-color: $primary-green;
-    }
+    transform: scale(1.12);
   }
 
   &:active {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 }
 
@@ -34,19 +26,18 @@ $transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   width: $icon-size;
   height: $icon-size;
   border-radius: 50%;
-  background: $white;
-  border: 2px solid $grey-light;
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   transition: $transition;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .iconImage {
-  width: 24px;
-  height: 24px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   border-radius: 0;
   transition: $transition;
@@ -60,7 +51,8 @@ $transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .iconImage {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
   }
 }
+

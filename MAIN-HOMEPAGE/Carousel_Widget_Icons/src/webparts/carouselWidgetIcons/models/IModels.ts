@@ -35,6 +35,9 @@ export interface IWeatherData {
   humidity: number;
   windSpeed: number;
   isDay: boolean;
+  tempHigh?: number;
+  tempLow?: number;
+  backgroundImageUrl?: string;
 }
 
 /**

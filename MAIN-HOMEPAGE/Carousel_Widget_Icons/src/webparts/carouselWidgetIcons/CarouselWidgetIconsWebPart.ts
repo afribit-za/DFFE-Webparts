@@ -517,8 +517,8 @@ export default class CarouselWidgetIconsWebPart extends BaseClientSideWebPart<IC
               groupFields: [
                 PropertyPaneTextField('card1SiteUrl', {
                   label: 'Site URL',
-                  placeholder: DEFAULT_SITE_URL,
-                  description: `Default: ${DEFAULT_SITE_URL}`
+                  placeholder: 'Enter SharePoint site URL',
+                  description: 'Leave blank to use the default site'
                 }),
                 PropertyPaneDropdown('card1ListName', {
                   label: 'Select List',
@@ -563,8 +563,8 @@ export default class CarouselWidgetIconsWebPart extends BaseClientSideWebPart<IC
               groupFields: [
                 PropertyPaneTextField('card2SiteUrl', {
                   label: 'Site URL',
-                  placeholder: DEFAULT_SITE_URL,
-                  description: `Default: ${DEFAULT_SITE_URL}`
+                  placeholder: 'Enter SharePoint site URL',
+                  description: 'Leave blank to use the default site'
                 }),
                 PropertyPaneDropdown('card2ListName', {
                   label: 'Select List',
@@ -609,8 +609,8 @@ export default class CarouselWidgetIconsWebPart extends BaseClientSideWebPart<IC
               groupFields: [
                 PropertyPaneTextField('card3SiteUrl', {
                   label: 'Site URL',
-                  placeholder: DEFAULT_SITE_URL,
-                  description: `Default: ${DEFAULT_SITE_URL}`
+                  placeholder: 'Enter SharePoint site URL',
+                  description: 'Leave blank to use the default site'
                 }),
                 PropertyPaneDropdown('card3ListName', {
                   label: 'Select List',

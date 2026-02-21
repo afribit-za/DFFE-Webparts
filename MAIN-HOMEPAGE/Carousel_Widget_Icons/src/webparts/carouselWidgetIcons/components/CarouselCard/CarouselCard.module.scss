@@ -198,10 +198,6 @@ $transition-card: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     color: darken($primary-green, 10%);
     transform: translateX(3px);
   }
-
-  &::after {
-    content: ' →';
-  }
 }
 
 .date {

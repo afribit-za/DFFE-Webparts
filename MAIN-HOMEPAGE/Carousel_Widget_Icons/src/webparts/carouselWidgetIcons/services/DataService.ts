@@ -217,6 +217,70 @@ export class DataService {
   }
 
   /**
+   * Maps lowercase city names to their Wikipedia article titles.
+   * Used to fetch real city photos via the Wikipedia REST summary API
+   * (free, no API key, open CORS — works from SharePoint Online).
+   */
+  private static readonly WIKI_ARTICLE: { [key: string]: string } = {
+    'johannesburg':     'Johannesburg',
+    'sandton':          'Sandton',
+    'pretoria':         'Pretoria',
+    'cape town':        'Cape_Town',
+    'capetown':         'Cape_Town',
+    'durban':           'Durban',
+    'bloemfontein':     'Bloemfontein',
+    'port elizabeth':   'Gqeberha',
+    'gqeberha':         'Gqeberha',
+    'polokwane':        'Polokwane',
+    'mbombela':         'Mbombela',
+    'nelspruit':        'Mbombela',
+    'east london':      'East_London,_Eastern_Cape',
+    'kimberley':        'Kimberley,_Northern_Cape',
+    'pietermaritzburg': 'Pietermaritzburg'
+  };
+
+  /**
+   * Fetch a city background image URL from the Wikipedia page-summary API.
+   * Returns null on any failure so it never blocks the weather data render.
+   */
+  private async _fetchWikipediaCityImage(cityName: string, cleanCity: string): Promise<string | null> {
+    const key: string = cityName.toLowerCase();
+    const fallback: string = cleanCity.toLowerCase();
+    const article: string =
+      DataService.WIKI_ARTICLE[key] ||
+      DataService.WIKI_ARTICLE[fallback] ||
+      cityName.replace(/ /g, '_');
+
+    const endpoint: string =
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(article)}`;
+
+    try {
+      const resp: HttpClientResponse = await this._context.httpClient.get(
+        endpoint,
+        HttpClient.configurations.v1,
+        {
+          headers: { 'Accept': 'application/json' },
+          // Prevents SharePoint tenant URL from leaking in the Referer header
+          referrerPolicy: 'no-referrer'
+        }
+      );
+      if (!resp.ok) return null;
+      const json: any = await resp.json();
+
+      // thumbnail.source is e.g.
+      // https://upload.wikimedia.org/wikipedia/commons/thumb/.../320px-name.jpg
+      // Bump to 800 px for a crisp card background.
+      let imgUrl: string | null = (json && json.thumbnail && json.thumbnail.source) ? json.thumbnail.source : null;
+      if (imgUrl) {
+        imgUrl = imgUrl.replace(/\/\d+px-/, '/800px-');
+      }
+      return imgUrl;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
    * Known city coordinates to avoid an extra geocoding API call.
    */
   private static readonly KNOWN_CITIES: { [key: string]: { lat: number; lon: number; name: string } } = {
@@ -304,7 +368,8 @@ export class DataService {
 
         const geoResponse: HttpClientResponse = await this._context.httpClient.get(
           geoEndpoint,
-          HttpClient.configurations.v1
+          HttpClient.configurations.v1,
+          { referrerPolicy: 'no-referrer' }  // Prevents tenant URL leaking in Referer header
         );
         if (!geoResponse.ok) {
           return null;
@@ -318,16 +383,21 @@ export class DataService {
         displayName = geoData.results[0].name || cleanCity;
       }
 
-      // Fetch current weather from Open-Meteo
+      // Fetch weather + Wikipedia city image in parallel
       const weatherEndpoint: string =
         `https://api.open-meteo.com/v1/forecast` +
         `?latitude=${lat}&longitude=${lon}` +
-        `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,is_day`;
+        `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,is_day` +
+        `&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
 
-      const weatherResponse: HttpClientResponse = await this._context.httpClient.get(
-        weatherEndpoint,
-        HttpClient.configurations.v1
-      );
+      const [weatherResponse, bgImageUrl]: [HttpClientResponse, string | null] = await Promise.all([
+        this._context.httpClient.get(
+          weatherEndpoint,
+          HttpClient.configurations.v1,
+          { referrerPolicy: 'no-referrer' }  // Prevents tenant URL leaking in Referer header
+        ),
+        this._fetchWikipediaCityImage(displayName, cleanCity)
+      ]);
 
       if (!weatherResponse.ok) {
         return null;
@@ -335,6 +405,7 @@ export class DataService {
 
       const weatherJson: any = await weatherResponse.json();
       const current: any = weatherJson.current;
+      const daily: any = weatherJson.daily;
 
       const weatherData: IWeatherData = {
         cityName: displayName,
@@ -343,7 +414,12 @@ export class DataService {
         weatherCode: current.weather_code,
         humidity: current.relative_humidity_2m,
         windSpeed: Math.round(current.wind_speed_10m * 10) / 10,
-        isDay: current.is_day === 1
+        isDay: current.is_day === 1,
+        tempHigh: daily && daily.temperature_2m_max && daily.temperature_2m_max[0] !== undefined
+          ? Math.round(daily.temperature_2m_max[0]) : undefined,
+        tempLow: daily && daily.temperature_2m_min && daily.temperature_2m_min[0] !== undefined
+          ? Math.round(daily.temperature_2m_min[0]) : undefined,
+        backgroundImageUrl: bgImageUrl || undefined
       };
 
       // Cache the result

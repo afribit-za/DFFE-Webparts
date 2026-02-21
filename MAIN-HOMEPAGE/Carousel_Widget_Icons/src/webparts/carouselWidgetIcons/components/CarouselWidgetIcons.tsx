@@ -9,13 +9,11 @@ import SocialIcon from './SocialIcon/SocialIcon';
 import ExpandModal from './ExpandModal/ExpandModal';
 
 /**
- * Returns a time-sensitive greeting based on current hour.
+ * Returns a South-African casual greeting.
+ * Always returns "Howzit" to match the design.
  */
 const getGreeting = (): string => {
-  const hour: number = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+  return 'Howzit';
 };
 
 /**
@@ -144,9 +142,9 @@ const CarouselWidgetIcons: React.FC<ICarouselWidgetIconsProps> = (props) => {
     return () => clearInterval(interval);
   }, [flatItems.length]);
 
-  // --- Auto-rotate weather every 8 seconds ---
+  // --- Auto-rotate weather every 8 seconds (always rotate if multiple cities) ---
   React.useEffect(() => {
-    if (weatherData.length <= 2) return undefined;
+    if (weatherData.length <= 1) return undefined;
 
     const interval = setInterval(() => {
       setActiveCityIndex((prev) => (prev + 1) % weatherData.length);
@@ -175,23 +173,10 @@ const CarouselWidgetIcons: React.FC<ICarouselWidgetIconsProps> = (props) => {
     return 'hidden';
   };
 
-  // --- Helper: get 2 visible weather cities ---
-  const getVisibleCities = (): Array<{ data: IWeatherData; isSecondary: boolean }> => {
-    if (weatherData.length === 0) return [];
-    if (weatherData.length === 1) {
-      return [{ data: weatherData[0], isSecondary: false }];
-    }
-    if (weatherData.length === 2) {
-      return [
-        { data: weatherData[0], isSecondary: false },
-        { data: weatherData[1], isSecondary: true }
-      ];
-    }
-    return [
-      { data: weatherData[activeCityIndex % weatherData.length], isSecondary: false },
-      { data: weatherData[(activeCityIndex + 1) % weatherData.length], isSecondary: true }
-    ];
-  };
+  // --- Handler: advance to next city manually ---
+  const handleNextCity = React.useCallback((): void => {
+    setActiveCityIndex((prev) => (prev + 1) % weatherData.length);
+  }, [weatherData.length]);
 
   // --- Shimmer loading placeholder ---
   const renderShimmer = (): React.ReactElement => (
@@ -218,7 +203,7 @@ const CarouselWidgetIcons: React.FC<ICarouselWidgetIconsProps> = (props) => {
       {/* Welcome Banner */}
       <div className={styles.welcomeBanner}>
         <span className={styles.welcomeText}>
-          {greeting}, <strong className={styles.userName}>{firstName}</strong> — <span className={styles.welcomeHighlight}>welcome back</span>!
+          {greeting}, <em className={styles.welcomeHighlight}>{firstName}</em> - It&rsquo;s good to have you back!
         </span>
       </div>
 
@@ -248,7 +233,7 @@ const CarouselWidgetIcons: React.FC<ICarouselWidgetIconsProps> = (props) => {
           </div>
         </section>
 
-        {/* MIDDLE — Weather Widget */}
+        {/* MIDDLE — Weather Widget (single card, rotates through cities) */}
         <section className={styles.weatherSection}>
           <div className={styles.weatherWrapper}>
             {isWeatherLoading ? (
@@ -259,13 +244,12 @@ const CarouselWidgetIcons: React.FC<ICarouselWidgetIconsProps> = (props) => {
                 'Add cities in web part properties'
               )
             ) : (
-              getVisibleCities().map((entry, index) => (
-                <WeatherCard
-                  key={`${entry.data.cityName}-${index}`}
-                  data={entry.data}
-                  isSecondary={entry.isSecondary}
-                />
-              ))
+              <WeatherCard
+                key={weatherData[activeCityIndex % weatherData.length].cityName}
+                data={weatherData[activeCityIndex % weatherData.length]}
+                onNext={handleNextCity}
+                hasMultiple={weatherData.length > 1}
+              />
             )}
           </div>
         </section>
